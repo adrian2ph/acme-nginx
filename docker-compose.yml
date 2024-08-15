@@ -1,0 +1,26 @@
+version: '3'
+
+# 设置容器的输出日志大小
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: 300m
+
+services:
+  nginx:
+    image: nginx-acme
+    container_name: nginx-acme
+    build:
+      context: .
+      dockerfile: Dockerfile
+    logging: *default-logging
+    restart: always
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d/
+      - ./ssl:/etc/resty-auto-ssl
+    ports:
+      - "80:80"
+      - "443:443"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # Dynamically resolves the host's IP address
+   
