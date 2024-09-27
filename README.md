@@ -4,11 +4,11 @@
 
 ## 使用
 
-ssl文件夹保存证书，chown -R a+rw ssl
+certs文件夹保存证书
 
 * 制作镜像
 
-docker compose build
+docker compose build -t nginx-acme
 
 * 启动命令
 
